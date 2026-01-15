@@ -4,6 +4,10 @@ import nl.saxion.Models.FilamentType;
 import nl.saxion.Models.PrintTask;
 import nl.saxion.prints.Print;
 import nl.saxion.spools.Spool;
+import nl.saxion.utils.PrinterFactory;
+import nl.saxion.utils.PrinterFeature;
+
+import java.util.Set;
 
 public class PrinterManager {
     private static PrinterManager INSTANCE;
@@ -17,6 +21,10 @@ public class PrinterManager {
             INSTANCE = new PrinterManager();
         }
         return INSTANCE;
+    }
+
+    public void addPrinter(int id, String name, String manufacturer, Set<PrinterFeature> features, Dimensions dimensions){
+        PrinterFactory.create(id, name, manufacturer, features, dimensions);
     }
 
 private List<Printer> printers = new ArrayList<Printer>();
