@@ -5,6 +5,7 @@ import nl.saxion.printers.Printer;
 import nl.saxion.printers.PrinterManager;
 import nl.saxion.prints.Print;
 import nl.saxion.spools.Spool;
+import nl.saxion.utils.FilamentType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

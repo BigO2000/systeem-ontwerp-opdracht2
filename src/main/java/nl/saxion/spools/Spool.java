@@ -1,14 +1,15 @@
 package nl.saxion.spools;
 
-import nl.saxion.Models.FilamentType;
+import nl.saxion.utils.Color;
+import nl.saxion.utils.FilamentType;
 
 public class Spool {
     private final int id;
-    private final String color;
+    private final Color color;
     private final FilamentType filamentType;
     private double length;
 
-    public Spool(int id, String color, FilamentType filamentType, double length) {
+    public Spool(int id, Color color, FilamentType filamentType, double length) {
         this.id = id;
         this.color = color;
         this.filamentType = filamentType;
@@ -23,12 +24,6 @@ public class Spool {
         return length;
     }
 
-    public boolean spoolMatch(String color, FilamentType type) {
-        if(color.equals(this.color) && type == this.getFilamentType()) {
-            return true;
-        }
-        return false;
-    }
     /**
      * This method will try to reduce the length of the spool.
      *
@@ -45,7 +40,7 @@ public class Spool {
         return success;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 

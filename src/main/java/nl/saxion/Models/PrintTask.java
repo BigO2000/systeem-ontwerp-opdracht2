@@ -1,23 +1,26 @@
 package nl.saxion.Models;
 
 import nl.saxion.prints.Print;
+import nl.saxion.utils.Color;
+import nl.saxion.utils.FilamentType;
+import nl.saxion.utils.PrinterFeature;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PrintTask {
     private Print print;
-    private List<String> colors;
+    private List<Color> colors;
     private FilamentType filamentType;
 
-
-    public PrintTask(Print print, List<String> colors, FilamentType filamentType){
+    public PrintTask(Print print, List<Color> colors, FilamentType filamentType){
         this.print = print;
         this.colors = colors;
         this.filamentType = filamentType;
-
     }
 
-    public List<String> getColors() {
+    public List<Color> getColors() {
         return colors;
     }
 
@@ -27,6 +30,19 @@ public class PrintTask {
 
     public Print getPrint(){
         return print;
+    }
+
+    public Set<PrinterFeature> getRequirements(){
+        Set<PrinterFeature> result = new HashSet<>();
+
+        if(colors.size() > 1){
+            result.add(PrinterFeature.MULTI_COLOR);
+        }
+        if(filamentType.equals(FilamentType.ABS)){
+            result.add(PrinterFeature.HOUSED);
+        }
+
+        return result;
     }
 
     @Override

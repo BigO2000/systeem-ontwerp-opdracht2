@@ -1,20 +1,19 @@
 package nl.saxion.prints;
 
+import nl.saxion.printers.Dimensions;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Print {
     private String name;
-    private int height;
-    private int width;
-    private int length;
-    private ArrayList<Double> filamentLength;
+    private Dimensions dimensions;
+    private List<Double> filamentLength;
     private int printTime;
 
-    public Print(String name, int height, int width, int length, ArrayList<Double> filamentLength, int printTime) {
+    public Print(String name, Dimensions dimensions, List<Double> filamentLength, int printTime) {
         this.name = name;
-        this.height = height;
-        this.width = width;
-        this.length = length;
+        this.dimensions = dimensions;
         this.filamentLength = filamentLength;
         this.printTime = printTime;
     }
@@ -35,16 +34,8 @@ public class Print {
         return name;
     }
 
-    public double getLength() {
-        return length;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
+    public Dimensions getDimensions(){
+        return dimensions;
     }
 
     public ArrayList<Double> getFilamentLength() {

@@ -1,8 +1,9 @@
 package nl.saxion.printers;
 
+import nl.saxion.Models.PrintTask;
 import nl.saxion.printers.behaviours.ColorBehaviour;
 import nl.saxion.printers.behaviours.HousingBehaviour;
-import nl.saxion.prints.Print;
+import nl.saxion.spools.Spool;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Printer {
     private final String name;
     private final String manufacturer;
     private final Dimensions dimensions;
+
+    private PrintTask currentTask;
 
     public Printer(int id, String printerName, String manufacturer, ColorBehaviour colorBehaviour, HousingBehaviour housingBehaviour, Dimensions dimensions) {
         this.id = id;
@@ -28,20 +31,37 @@ public class Printer {
         return id;
     }
 
-    public int CalculatePrintTime(String filename) {
-        return 0;
+    public void setCurrentTask(PrintTask printTask){
+        if(canPrint(printTask)){
+            this.currentTask = printTask;
+        }
+        else{
+            throw new IllegalStateException("Printer not compatible with this task");
+        }
     }
 
-    public List<Integer> getCurrentSpools() {
+    public PrintTask getCurrentTask(){
+        return currentTask;
+    }
+
+    public PrintTask removeCurrentTask(){
+        PrintTask task = currentTask;
+        currentTask = null;
+
+        return task;
+    }
+
+    public List<Spool> getCurrentSpools() {
         return colorBehaviour.getCurrentSpools();
     }
 
-    public void setCurrentSpools(List<Integer> spools) {
+    public void setCurrentSpools(List<Spool> spools) {
         colorBehaviour.setCurrentSpools(spools);
     }
 
-    public boolean printFits(Print print) {
-        return false;
+    public boolean canPrint(PrintTask printTask){
+        return colorBehaviour.supportsColors(printTask.getColors())
+                && housingBehaviour.supportsFilament(printTask.getFilamentType());
     }
 
     @Override
