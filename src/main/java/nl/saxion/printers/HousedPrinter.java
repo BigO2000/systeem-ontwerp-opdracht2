@@ -1,4 +1,4 @@
-package nl.saxion.Models;
+package nl.saxion.printers;
 
 /* Printer capable of printing ABS */
 public class HousedPrinter extends StandardFDM {

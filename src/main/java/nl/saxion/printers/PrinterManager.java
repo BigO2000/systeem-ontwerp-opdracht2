@@ -1,7 +1,8 @@
-package nl.saxion;
+package nl.saxion.printers;
 
 import nl.saxion.Models.*;
-import org.json.simple.JSONArray;
+import nl.saxion.prints.Print;
+import nl.saxion.spools.Spool;
 
 import java.util.*;
 

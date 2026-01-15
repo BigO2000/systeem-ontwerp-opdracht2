@@ -1,6 +1,6 @@
-package nl.saxion.Models;
+package nl.saxion.spools;
 
-import java.util.Objects;
+import nl.saxion.Models.FilamentType;
 
 public class Spool {
     private final int id;
