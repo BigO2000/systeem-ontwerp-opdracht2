@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PrintManager {
-    private static final String PRINTS_LOCATION = "resources/prints.json";
+    private static final String PRINTS_LOCATION = "src/main/resources/prints.json";
     private static PrintManager INSTANCE;
     private final Map<Integer, Print> prints = new HashMap<>();
 

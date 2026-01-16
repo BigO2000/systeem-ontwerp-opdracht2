@@ -23,9 +23,9 @@ public class Print {
     public String toString() {
         return "--------" + System.lineSeparator() +
                 "- Name: " + name + System.lineSeparator() +
-                "- Height: " + height + System.lineSeparator() +
-                "- Width: " + width + System.lineSeparator() +
-                "- Length: " + length + System.lineSeparator() +
+                "- Height: " + dimensions.y()+ System.lineSeparator() +
+                "- Width: " + dimensions.x() + System.lineSeparator() +
+                "- Length: " + dimensions.z() + System.lineSeparator() +
                 "- FilamentLength: " + filamentLength + System.lineSeparator() +
                 "- Print Time: " + printTime + System.lineSeparator() +
                 "--------";

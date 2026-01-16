@@ -1,31 +1,35 @@
 package nl.saxion.printers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.spools.SpoolManager;
 import nl.saxion.utils.*;
 import nl.saxion.Models.PrintTask;
 import nl.saxion.prints.Print;
-import nl.saxion.spools.Spool;
 
 import java.io.File;
 import java.util.*;
 
 public class PrinterManager {
-    private static final String PRINTER_LOCATION = "resources/printers.json";
+    private static final String PRINTER_LOCATION = "/resources/printers.json";
     private static PrinterManager INSTANCE;
     private final Map<Integer, Printer> printers = new HashMap<>();
     private final List<PrintTask> pendingPrintTasks = new ArrayList<>();
 
     private PrinterManager() throws Exception {
-        List<Printer> printersList = Utils.loadJson(new File(PRINTER_LOCATION),
+        // Uses a printerHelper record for Jackson parsing.
+        List<PrinterHelper> printersList = Utils.loadJson(new File(PRINTER_LOCATION),
                 new TypeReference<>() {});
 
-        printersList.forEach(p -> printers.put(p.getId(), p));
+        // Uses the PrinterHelper to create the actual printers.
+        printersList.forEach(p -> printers.put(p.id(), PrinterFactory.create(p)));
     }
 
-    public static PrinterManager getInstance() {
+    public static PrinterManager getInstance(){
         if (INSTANCE == null) {
-            INSTANCE = new PrinterManager();
+            try{
+                INSTANCE = new PrinterManager();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return INSTANCE;
     }
@@ -38,8 +42,10 @@ public class PrinterManager {
         // Starts printing the printqueue.
     }
 
-    public Set<Integer> getPrinters() {
-        return printers.keySet();
+    public Map<Integer, String> getPrinters() {
+        Map<Integer, String> map = new HashMap<>();
+        printers.forEach((integer, printer) -> map.put(integer, printer.getName()));
+        return map;
     }
 
     public Map<Integer, String> getRunningPrinters() {
@@ -53,13 +59,6 @@ public class PrinterManager {
     }
 
     public void addPrintJob(Print print) {
-
-    }
-
-    public void registerPrinterFailure(int id) {
-    }
-
-    public registerCompletion(int id) {
 
     }
 
@@ -89,9 +88,7 @@ public class PrinterManager {
     }
 
     public void startInitialQueue() {
-        for (Printer printer : printers) {
-            selectPrintTask(printer);
-        }
+
     }
 
     public String getPrinterCurrentTask(int id) {
@@ -102,7 +99,7 @@ public class PrinterManager {
         return pendingPrintTasks;
     }
 
-    public void addPrintTask(String printName, List<Color> colors, FilamentType type) {
+   /* public void addPrintTask(String printName, List<Color> colors, FilamentType type) {
         Print print = findPrint(printName);
         if (print == null) {
             printError("Could not find print with name " + printName);
@@ -131,10 +128,10 @@ public class PrinterManager {
         pendingPrintTasks.add(task);
         System.out.println("Added task to queue");
 
-    }
+    }*/
 
     public void registerPrinterFailure(int id) {
-        if(printers.get(id).getCurrentTask() == null){
+       /* if(printers.get(id).getCurrentTask() == null){
             throw new IllegalStateException("Cannot find running task on printer with ID: " + id );
         }
 
@@ -143,11 +140,11 @@ public class PrinterManager {
         pendingPrintTasks.add(task);
         System.out.println("Task " + task + " removed from printer " + printers.get(id).getName());
 
-        //TODO: restart failed task.
+        //TODO: restart failed task.*/
     }
 
     public void registerCompletion(int printerId) {
-        Map.Entry<Printer, PrintTask> foundEntry = null;
+       /* Map.Entry<Printer, PrintTask> foundEntry = null;
         for (Map.Entry<Printer, PrintTask> entry : runningPrintTasks.entrySet()) {
             if (entry.getKey().getId() == printerId) {
                 foundEntry = entry;
@@ -169,7 +166,7 @@ public class PrinterManager {
         for (int i = 0; i < spools.length && i < task.getColors().size(); i++) {
             spools[i].reduceLength(task.getPrint().getFilamentLength().get(i));
         }
-        selectPrintTask(printer);
+        selectPrintTask(printer);*/
     }
 
     private void printError(String s) {

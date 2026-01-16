@@ -35,6 +35,12 @@ public class SpoolManager {
         return INSTANCE;
     }
 
+    public List<String> getSpools(){
+        return spools.values().stream()
+                .map(Spool::toString)
+                .toList();
+    }
+
     public void addSpool(int id, Color color, FilamentType filamentType, double length) {
         spools.put(id, new Spool(id, color, filamentType, length));
     }

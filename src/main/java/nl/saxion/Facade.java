@@ -3,6 +3,7 @@ package nl.saxion;
 import nl.saxion.Models.PrintTask;
 import nl.saxion.printers.PrinterManager;
 import nl.saxion.prints.PrintManager;
+import nl.saxion.spools.SpoolManager;
 import nl.saxion.utils.Color;
 import nl.saxion.utils.FilamentType;
 
@@ -27,6 +28,10 @@ public class Facade {
         PrinterManager.getInstance().registerPrinterFailure(id);
     }
 
+    public static Map<Integer, String> getPrinters(){
+        return PrinterManager.getInstance().getPrinters();
+    }
+
     public static List<String> getPendingPrintTasks() {
         return PrinterManager.getInstance()
                 .getPendingPrintTasks()
@@ -40,11 +45,11 @@ public class Facade {
     }
 
     public static void addPrintTask(int printId, List<Color> colorIds, FilamentType filamentTypeId) {
-        PrinterManager.getInstance().addPrintTask(
+      /*  PrinterManager.getInstance().addPrintTask(
                 PrintManager.getInstance().getPrint(printId),
                 Color,
                 filamentTypeId
-        );
+        );*/
     }
 
     public static Map<Integer, String> getFilamentTypes() {
@@ -63,5 +68,9 @@ public class Facade {
             map.put(c.ordinal(), c.name());
         }
         return map;
+    }
+
+    public static List<String> getSpools(){
+        return SpoolManager.getInstance().getSpools();
     }
 }
