@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PrintManager {
-    private static final String PRINTS_LOCATION = "src/main/resources/prints.json";
+    private static final String PRINTS_LOCATION = "resources/prints.json";
     private static PrintManager INSTANCE;
     private final Map<Integer, Print> prints = new HashMap<>();
 
@@ -18,7 +18,7 @@ public class PrintManager {
         List<Print> l = Utils.loadJson(new File(PRINTS_LOCATION),
                 new TypeReference<>() {});
 
-        l.forEach(print -> prints.put(print.getId(), print));
+        l.forEach(print -> prints.put(print.id(), print));
     }
 
     public static PrintManager getInstance() {
@@ -33,14 +33,15 @@ public class PrintManager {
     }
 
     public void addPrint(String name, int id, Dimensions dimensions, List<Double> filamentLength, int printTime) {
-        prints.put(id, new Print(name, id, dimensions, filamentLength, printTime));
+        //TODO: fix
+        //prints.put(id, new Print(name, id, dimensions, filamentLength, printTime));
     }
 
     public Map<Integer, String> getPrints() {
         Map<Integer, String> map = new HashMap<>();
 
         prints.forEach((id, print) ->
-                map.put(id, print.getName()));
+                map.put(id, print.name()));
 
         return map;
     }

@@ -47,6 +47,6 @@ public class PrintTask {
 
     @Override
     public String toString() {
-        return "< " + print.getName() +" " + filamentType + " " + colors.toString() + " >";
+        return "< " + print.name() +" " + filamentType + " " + colors.toString() + " >";
     }
 }

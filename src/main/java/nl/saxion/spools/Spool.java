@@ -4,14 +4,15 @@ import nl.saxion.utils.Color;
 import nl.saxion.utils.FilamentType;
 
 public class Spool {
-    private final int id;
-    private final Color color;
-    private final FilamentType filamentType;
+    private int id;
+    private Color color;
+    private FilamentType filamentType;
     private double length;
+
+    public Spool(){}
 
     public Spool(int id, Color color, FilamentType filamentType, double length) {
         this.id = id;
-        this.color = color;
         this.filamentType = filamentType;
         this.length = length;
     }

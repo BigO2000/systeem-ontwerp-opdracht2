@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.*;
 
 public class PrinterManager {
-    private static final String PRINTER_LOCATION = "/resources/printers.json";
+    private static final String PRINTER_LOCATION = "resources/printers.json";
     private static PrinterManager INSTANCE;
     private final Map<Integer, Printer> printers = new HashMap<>();
     private final List<PrintTask> pendingPrintTasks = new ArrayList<>();
@@ -92,7 +92,7 @@ public class PrinterManager {
     }
 
     public String getPrinterCurrentTask(int id) {
-        return printers.get(id).getCurrentTask().getPrint().getName();
+        return printers.get(id).getCurrentTask().getPrint().name();
     }
 
     public List<PrintTask> getPendingPrintTasks() {
