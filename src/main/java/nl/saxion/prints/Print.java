@@ -2,20 +2,21 @@ package nl.saxion.prints;
 
 import nl.saxion.printers.Dimensions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Print {
     private String name;
+    private int id;
     private Dimensions dimensions;
     private List<Double> filamentLength;
     private int printTime;
 
-    public Print(String name, Dimensions dimensions, List<Double> filamentLength, int printTime) {
+    public Print(String name, int id, Dimensions dimensions, List<Double> filamentLength, int printTime) {
         this.name = name;
         this.dimensions = dimensions;
         this.filamentLength = filamentLength;
         this.printTime = printTime;
+        this.id = id;
     }
 
     @Override
@@ -34,11 +35,15 @@ public class Print {
         return name;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public Dimensions getDimensions(){
         return dimensions;
     }
 
-    public ArrayList<Double> getFilamentLength() {
+    public List<Double> getFilamentLength() {
         return filamentLength;
     }
 }

@@ -1,5 +1,67 @@
 package nl.saxion;
 
-public class Facade {
+import nl.saxion.Models.PrintTask;
+import nl.saxion.printers.PrinterManager;
+import nl.saxion.prints.PrintManager;
+import nl.saxion.utils.Color;
+import nl.saxion.utils.FilamentType;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Facade {
+    public static Map<Integer, String> getRunningPrinters() {
+        return PrinterManager.getInstance().getRunningPrinters();
+    }
+
+    public static void registerPrinterCompletion(int id) {
+        PrinterManager.getInstance().registerCompletion(id);
+    }
+
+    public static String getCurrentPrinterTask(int id) {
+        return PrinterManager.getInstance().getPrinterCurrentTask(id);
+    }
+
+    public static void registerPrinterFailure(int id) {
+        PrinterManager.getInstance().registerPrinterFailure(id);
+    }
+
+    public static List<String> getPendingPrintTasks() {
+        return PrinterManager.getInstance()
+                .getPendingPrintTasks()
+                .stream()
+                .map(PrintTask::toString)
+                .toList();
+    }
+
+    public static Map<Integer, String> getPrints() {
+        return PrintManager.getInstance().getPrints();
+    }
+
+    public static void addPrintTask(int printId, List<Color> colorIds, FilamentType filamentTypeId) {
+        PrinterManager.getInstance().addPrintTask(
+                PrintManager.getInstance().getPrint(printId),
+                Color,
+                filamentTypeId
+        );
+    }
+
+    public static Map<Integer, String> getFilamentTypes() {
+        Map<Integer, String> map = new HashMap<>();
+
+        for (FilamentType e : FilamentType.values()) {
+            map.put(e.ordinal(), e.name());
+        }
+        return map;
+    }
+
+    public static Map<Integer, String> getColors() {
+        Map<Integer, String> map = new HashMap<>();
+
+        for (Color c : Color.values()) {
+            map.put(c.ordinal(), c.name());
+        }
+        return map;
+    }
 }

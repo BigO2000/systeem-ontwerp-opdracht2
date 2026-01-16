@@ -1,20 +1,27 @@
 package nl.saxion.printers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import nl.saxion.spools.SpoolManager;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
+import nl.saxion.utils.*;
 import nl.saxion.Models.PrintTask;
 import nl.saxion.prints.Print;
 import nl.saxion.spools.Spool;
-import nl.saxion.utils.PrinterFactory;
-import nl.saxion.utils.PrinterFeature;
 
+import java.io.File;
 import java.util.*;
 
 public class PrinterManager {
+    private static final String PRINTER_LOCATION = "resources/printers.json";
     private static PrinterManager INSTANCE;
     private final Map<Integer, Printer> printers = new HashMap<>();
     private final List<PrintTask> pendingPrintTasks = new ArrayList<>();
+
+    private PrinterManager() throws Exception {
+        List<Printer> printersList = Utils.loadJson(new File(PRINTER_LOCATION),
+                new TypeReference<>() {});
+
+        printersList.forEach(p -> printers.put(p.getId(), p));
+    }
 
     public static PrinterManager getInstance() {
         if (INSTANCE == null) {
@@ -33,6 +40,16 @@ public class PrinterManager {
 
     public Set<Integer> getPrinters() {
         return printers.keySet();
+    }
+
+    public Map<Integer, String> getRunningPrinters() {
+        Map<Integer, String> map = new HashMap<>();
+
+        printers.forEach((id, printer) ->
+                map.put(id, printer.getName())
+        );
+
+        return map;
     }
 
     public void addPrintJob(Print print) {
@@ -77,8 +94,8 @@ public class PrinterManager {
         }
     }
 
-    public PrintTask getPrinterCurrentTask(int id) {
-        return printers.get(id).getCurrentTask();
+    public String getPrinterCurrentTask(int id) {
+        return printers.get(id).getCurrentTask().getPrint().getName();
     }
 
     public List<PrintTask> getPendingPrintTasks() {
