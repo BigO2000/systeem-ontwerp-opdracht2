@@ -1,8 +1,8 @@
 package nl.saxion;
 
-import nl.saxion.printers.PrinterManager;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
+import nl.saxion.domain.Facade;
+import nl.saxion.domain.enums.Color;
+import nl.saxion.domain.enums.FilamentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,6 @@ public class Ui {
         System.out.println("- 1) Add new Print Task");
         System.out.println("- 2) Register Printer Completion");
         System.out.println("- 3) Register Printer Failure");
-        System.out.println("- 4) Change printing style");
         System.out.println("- 5) Start Print Queue");
         System.out.println("- 6) Show prints");
         System.out.println("- 7) Show printers");

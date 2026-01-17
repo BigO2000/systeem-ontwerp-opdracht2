@@ -1,10 +1,9 @@
-package nl.saxion.printers;
+package nl.saxion.domain.printers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.Models.PrintTask;
-import nl.saxion.utils.PrinterFactory;
-import nl.saxion.utils.PrinterFeature;
-import nl.saxion.utils.Utils;
+import nl.saxion.domain.prints.PrintTask;
+import nl.saxion.domain.utils.PrinterFactory;
+import nl.saxion.domain.utils.Utils;
 
 import java.io.File;
 import java.util.*;
@@ -34,14 +33,6 @@ public class PrinterManager {
             }
         }
         return INSTANCE;
-    }
-
-    public void addPrinter(int id, String name, String manufacturer, Set<PrinterFeature> features, Dimensions dimensions) {
-        printers.put(id, PrinterFactory.create(id, name, manufacturer, features, dimensions));
-    }
-
-    public void startPrinting() {
-        // Starts printing the printqueue.
     }
 
     public Map<Integer, String> getPrinters() {

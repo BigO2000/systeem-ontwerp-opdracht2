@@ -1,8 +1,7 @@
-package nl.saxion.printers.behaviours;
+package nl.saxion.domain.printers.behaviours;
 
-import nl.saxion.spools.Spool;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.PrinterFeature;
+import nl.saxion.domain.spools.Spool;
+import nl.saxion.domain.enums.Color;
 
 import java.util.List;
 
@@ -11,11 +10,7 @@ public interface ColorBehaviour {
 
     List<Spool> getCurrentSpools();
 
-    int getMaxColors();
-
     String toString();
-
-    PrinterFeature getColorBehaviour();
 
     boolean supportsColors(List<Color> colors);
 }

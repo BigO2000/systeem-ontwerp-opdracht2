@@ -1,12 +1,9 @@
-package nl.saxion.Models;
+package nl.saxion.domain.prints;
 
-import nl.saxion.prints.Print;
-import nl.saxion.prints.PrintManager;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
-import nl.saxion.utils.PrinterFeature;
+import nl.saxion.domain.enums.Color;
+import nl.saxion.domain.enums.FilamentType;
+import nl.saxion.domain.enums.PrinterFeature;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

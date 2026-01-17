@@ -1,9 +1,11 @@
-package nl.saxion.printers;
+package nl.saxion.domain.printers;
 
-import nl.saxion.Models.PrintTask;
-import nl.saxion.printers.behaviours.ColorBehaviour;
-import nl.saxion.printers.behaviours.HousingBehaviour;
-import nl.saxion.spools.Spool;
+import nl.saxion.domain.prints.PrintTask;
+import nl.saxion.domain.printers.behaviours.ColorBehaviour;
+import nl.saxion.domain.printers.behaviours.HousingBehaviour;
+import nl.saxion.domain.spools.Spool;
+import nl.saxion.domain.utils.Dimensions;
+import nl.saxion.domain.utils.Utils;
 
 import java.util.List;
 
@@ -70,7 +72,8 @@ public class Printer {
 
     public boolean canPrint(PrintTask printTask){
         return colorBehaviour.supportsColors(printTask.getColors())
-                && housingBehaviour.supportsFilament(printTask.getFilamentType());
+                && housingBehaviour.supportsFilament(printTask.getFilamentType())
+                && Utils.printFitCheck(printTask.getPrint().getDimensions(), dimensions);
     }
 
     @Override
@@ -80,8 +83,6 @@ public class Printer {
                 "- Name: " + name + System.lineSeparator() +
                 "- Manufacturer: " + manufacturer + System.lineSeparator() +
                 colorBehaviour.toString() +
-                // TODO: fix to String
-
                 "--------";
     }
 

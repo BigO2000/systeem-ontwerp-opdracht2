@@ -1,16 +1,16 @@
-package nl.saxion.spools;
+package nl.saxion.domain.spools;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.Models.PrintTask;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
+import nl.saxion.domain.prints.PrintTask;
+import nl.saxion.domain.enums.Color;
+import nl.saxion.domain.enums.FilamentType;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static nl.saxion.utils.Utils.loadJson;
+import static nl.saxion.domain.utils.Utils.loadJson;
 
 public class SpoolManager {
     private static final String SPOOL_LOCATION = "resources/spools.json";

@@ -1,13 +1,8 @@
-package nl.saxion.printers.behaviours;
+package nl.saxion.domain.printers.behaviours;
 
-import nl.saxion.utils.FilamentType;
-import nl.saxion.utils.PrinterFeature;
+import nl.saxion.domain.enums.FilamentType;
 
 public class NoHousing implements HousingBehaviour {
-    @Override
-    public PrinterFeature getHousingBehaviour() {
-        return null;
-    }
 
     @Override
     //Supports everything except ABS.

@@ -1,15 +1,15 @@
-package nl.saxion.utils;
+package nl.saxion.domain.utils;
 
-import nl.saxion.printers.Dimensions;
-import nl.saxion.printers.Printer;
-import nl.saxion.printers.PrinterHelper;
-import nl.saxion.printers.behaviours.*;
+import nl.saxion.domain.enums.PrinterFeature;
+import nl.saxion.domain.printers.Printer;
+import nl.saxion.domain.printers.PrinterHelper;
+import nl.saxion.domain.printers.behaviours.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static nl.saxion.utils.PrinterFeature.HOUSED;
-import static nl.saxion.utils.PrinterFeature.MULTI_COLOR;
+import static nl.saxion.domain.enums.PrinterFeature.HOUSED;
+import static nl.saxion.domain.enums.PrinterFeature.MULTI_COLOR;
 
 public class PrinterFactory {
     // Method for creating printers using a PrinterHelper (Used when reading printers from file.)

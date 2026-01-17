@@ -1,7 +1,7 @@
-package nl.saxion.spools;
+package nl.saxion.domain.spools;
 
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
+import nl.saxion.domain.enums.Color;
+import nl.saxion.domain.enums.FilamentType;
 
 public class Spool {
     private int id;
@@ -9,6 +9,7 @@ public class Spool {
     private FilamentType filamentType;
     private double length;
 
+    // For Jackson
     public Spool(){}
 
     public Spool(int id, Color color, FilamentType filamentType, double length) {

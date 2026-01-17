@@ -1,7 +1,7 @@
-package nl.saxion.prints;
+package nl.saxion.domain.prints;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.utils.Utils;
+import nl.saxion.domain.utils.Utils;
 
 import java.io.File;
 import java.util.HashMap;

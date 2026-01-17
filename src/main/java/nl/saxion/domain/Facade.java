@@ -1,11 +1,11 @@
-package nl.saxion;
+package nl.saxion.domain;
 
-import nl.saxion.Models.PrintTask;
-import nl.saxion.printers.PrinterManager;
-import nl.saxion.prints.PrintManager;
-import nl.saxion.spools.SpoolManager;
-import nl.saxion.utils.Color;
-import nl.saxion.utils.FilamentType;
+import nl.saxion.domain.prints.PrintTask;
+import nl.saxion.domain.printers.PrinterManager;
+import nl.saxion.domain.prints.PrintManager;
+import nl.saxion.domain.spools.SpoolManager;
+import nl.saxion.domain.enums.Color;
+import nl.saxion.domain.enums.FilamentType;
 
 import java.util.HashMap;
 import java.util.List;

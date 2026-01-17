@@ -1,10 +1,9 @@
-package nl.saxion.utils;
+package nl.saxion.domain.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.saxion.printers.Dimensions;
 
 import java.io.File;
 
