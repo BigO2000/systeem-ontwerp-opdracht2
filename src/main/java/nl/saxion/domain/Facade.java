@@ -16,6 +16,12 @@ public class Facade {
         return PrinterManager.getInstance().getRunningPrinters();
     }
 
+    public static void initializeManagers(){
+        PrinterManager.getInstance();
+        PrintManager.getInstance();
+        SpoolManager.getInstance();
+    }
+
     public static void startInitialQueue(){
         PrinterManager.getInstance().startInitialQueue();
     }

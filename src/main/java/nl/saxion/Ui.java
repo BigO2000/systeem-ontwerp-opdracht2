@@ -14,6 +14,7 @@ public class Ui {
     private boolean running = true;
 
     public void mainMenu() {
+        Facade.initializeManagers();
         while (running) {
             printMenu();
             String choice = getUserInput("Option: ");
