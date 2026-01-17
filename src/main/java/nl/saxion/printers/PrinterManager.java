@@ -1,9 +1,10 @@
 package nl.saxion.printers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.utils.*;
 import nl.saxion.Models.PrintTask;
-import nl.saxion.prints.Print;
+import nl.saxion.utils.PrinterFactory;
+import nl.saxion.utils.PrinterFeature;
+import nl.saxion.utils.Utils;
 
 import java.io.File;
 import java.util.*;
@@ -17,17 +18,18 @@ public class PrinterManager {
     private PrinterManager() throws Exception {
         // Uses a printerHelper record for Jackson parsing.
         List<PrinterHelper> printersList = Utils.loadJson(new File(PRINTER_LOCATION),
-                new TypeReference<>() {});
+                new TypeReference<>() {
+                });
 
         // Uses the PrinterHelper to create the actual printers.
         printersList.forEach(p -> printers.put(p.id(), PrinterFactory.create(p)));
     }
 
-    public static PrinterManager getInstance(){
+    public static PrinterManager getInstance() {
         if (INSTANCE == null) {
-            try{
+            try {
                 INSTANCE = new PrinterManager();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -62,33 +64,23 @@ public class PrinterManager {
         pendingPrintTasks.add(printTask);
     }
 
-    public void print() {
-
-    }
-
-    public void selectPrintTask(Printer printer) {
-        // Find print matching spool on printer.
-        PrintTask chosenTask = getPrintTask(printer);
-
-        // Start printing.
-        if (chosenTask != null) {
-            pendingPrintTasks.remove(chosenTask);
-            System.out.println("- Started task: " + chosenTask + " on printer " + printer.getName());
+    public void startInitialQueue() {
+        for (Printer printer : printers.values()) {
+            selectPrintTask(printer);
         }
     }
 
-    //TODO: fix this method.
-
-    // Searches pending print tasks and returns the first compatible one.
-    private PrintTask getPrintTask(Printer printer) {
-        return pendingPrintTasks.stream()
-                .filter(printer::canPrint)
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Could not complete"));
-    }
-
-    public void startInitialQueue() {
-        pendingPrintTasks.forEach(t -> selectPrintTask());
+    private void selectPrintTask(Printer printer) {
+        boolean found = false;
+        for (PrintTask printTask : pendingPrintTasks) {
+            if (printer.canPrint(printTask)) {
+                printer.setCurrentTask(printTask);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Could not find suitable task for printer: " + printer.getName());
+        }
     }
 
     public String getPrinterCurrentTask(int id) {
@@ -100,8 +92,8 @@ public class PrinterManager {
     }
 
     public void registerPrinterFailure(int id) {
-        if(printers.get(id).getCurrentTask() == null){
-            throw new IllegalStateException("Cannot find running task on printer with ID: " + id );
+        if (printers.get(id).getCurrentTask() == null) {
+            throw new IllegalStateException("Cannot find running task on printer with ID: " + id);
         }
 
         Printer printer = printers.get(id);
@@ -113,7 +105,7 @@ public class PrinterManager {
     }
 
     public void registerCompletion(int printerId) {
-        if(!printers.containsKey(printerId)){
+        if (!printers.containsKey(printerId)) {
             throw new IllegalStateException("Printer with id: " + printerId + " does not exits");
         }
 

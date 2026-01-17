@@ -40,6 +40,10 @@ public class Printer {
         }
     }
 
+    public boolean isBusy(){
+        return currentTask != null;
+    }
+
     public PrintTask getCurrentTask(){
         return currentTask;
     }
