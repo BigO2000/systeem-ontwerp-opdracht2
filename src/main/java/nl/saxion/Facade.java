@@ -32,6 +32,10 @@ public class Facade {
         return PrinterManager.getInstance().getPrinters();
     }
 
+    public static int getSpoolsRequired(int id){
+        return PrintManager.getInstance().getPrint(id).filamentLength().size();
+    }
+
     public static List<String> getPendingPrintTasks() {
         return PrinterManager.getInstance()
                 .getPendingPrintTasks()
@@ -44,12 +48,8 @@ public class Facade {
         return PrintManager.getInstance().getPrints();
     }
 
-    public static void addPrintTask(int printId, List<Color> colorIds, FilamentType filamentTypeId) {
-      /*  PrinterManager.getInstance().addPrintTask(
-                PrintManager.getInstance().getPrint(printId),
-                Color,
-                filamentTypeId
-        );*/
+    public static void addPrintTask(int printId, List<Color> colors, FilamentType filamentType) {
+        PrinterManager.getInstance().addPrintTask(new PrintTask(printId, colors, filamentType));
     }
 
     public static Map<Integer, String> getFilamentTypes() {

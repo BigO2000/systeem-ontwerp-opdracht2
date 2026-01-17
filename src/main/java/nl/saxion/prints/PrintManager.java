@@ -1,7 +1,6 @@
 package nl.saxion.prints;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.printers.Dimensions;
 import nl.saxion.utils.Utils;
 
 import java.io.File;
@@ -32,9 +31,8 @@ public class PrintManager {
         return INSTANCE;
     }
 
-    public void addPrint(String name, int id, Dimensions dimensions, List<Double> filamentLength, int printTime) {
-        //TODO: fix
-        //prints.put(id, new Print(name, id, dimensions, filamentLength, printTime));
+    public Print getPrint(int id){
+        return prints.get(id);
     }
 
     public Map<Integer, String> getPrints() {

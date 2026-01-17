@@ -1,25 +1,35 @@
 package nl.saxion;
 
+import nl.saxion.utils.Color;
+import nl.saxion.utils.FilamentType;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
+    private boolean running = true;
 
     public void mainMenu() {
-        printMenu();
-        String choice = getUserInput("Option: ");
+        while (running) {
+            printMenu();
+            String choice = getUserInput("Option: ");
 
-        switch (choice) {
-            case "1" -> addNewPrintTask();
-            case "2" -> registerPrintCompletion();
-            case "3" -> registerPrinterFailure();
-            case "5" -> startPrintQueue();
-            case "6" -> showPrints();
-            case "7" -> showPrinters();
-            case "8" -> showSpools();
-            case "9" -> showPendingPrintTasks();
-            default -> throw new IllegalStateException("Invalid choice: " + choice + " enter a number between 1 and 9");
+            switch (choice) {
+                case "1" -> addNewPrintTask();
+                case "2" -> registerPrintCompletion();
+                case "3" -> registerPrinterFailure();
+                case "5" -> startPrintQueue();
+                case "6" -> showPrints();
+                case "7" -> showPrinters();
+                case "8" -> showSpools();
+                case "9" -> showPendingPrintTasks();
+                case "0" -> running = false;
+                default ->
+                        throw new IllegalStateException("Invalid choice: " + choice + " enter a number between 1 and 9");
+            }
         }
     }
 
@@ -32,7 +42,7 @@ public class Ui {
     }
 
     private void showPrints() {
-        printIndexedObjects(Facade.getPrints(),"All Prints");
+        printIndexedObjects(Facade.getPrints(), "All Prints");
     }
 
     public static void printMenu() {
@@ -91,21 +101,29 @@ public class Ui {
                 "- Print that you want to print (ID): "
         );
 
-        int filamentType = indexedMenu(
-                Facade.getFilamentTypes(),
-                "Filament Type",
-                "- Filament type number: "
-        );
+        // Select the filament type.
+        Map<Integer, String> filaments = Facade.getFilamentTypes();
 
-        int color = indexedMenu(
-                Facade.getColors(),
-                "Colors",
-                "- Color number: "
-        );
+        printIndexedObjects(filaments, "Filament Type");
+        int input = Integer.parseInt(getUserInput("- Filament Type Number: "));
+        System.out.println("-----------------------------------");
 
-      /*  // TODO: afmaken.
-        Facade.addPrintTask(print, color, filamentType);
-        System.out.println("----------------------------");*/
+        FilamentType filamentType = FilamentType.valueOf(filaments.get(input));
+
+        // Select a color for every required spool.
+        int spoolsRequired = Facade.getSpoolsRequired(print);
+        Map<Integer, String> colors = Facade.getColors();
+        List<Color> colorList = new ArrayList<>();
+
+        for (int i = 0; i < spoolsRequired; i++) {
+            printIndexedObjects(colors, "Colors");
+            input = Integer.parseInt(getUserInput("- Color number: "));
+            System.out.println("-----------------------------------");
+
+            colorList.add(Color.valueOf(colors.get(input)));
+        }
+
+        Facade.addPrintTask(print, colorList, filamentType);
     }
 
     private void showPendingPrintTasks() {

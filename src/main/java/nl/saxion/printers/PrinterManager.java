@@ -58,8 +58,8 @@ public class PrinterManager {
         return map;
     }
 
-    public void addPrintJob(Print print) {
-
+    public void addPrintTask(PrintTask printTask) {
+        pendingPrintTasks.add(printTask);
     }
 
     public void print() {

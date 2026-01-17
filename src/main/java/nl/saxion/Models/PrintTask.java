@@ -1,10 +1,12 @@
 package nl.saxion.Models;
 
 import nl.saxion.prints.Print;
+import nl.saxion.prints.PrintManager;
 import nl.saxion.utils.Color;
 import nl.saxion.utils.FilamentType;
 import nl.saxion.utils.PrinterFeature;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,10 @@ public class PrintTask {
         this.print = print;
         this.colors = colors;
         this.filamentType = filamentType;
+    }
+
+    public PrintTask(int printId, List<Color> colors, FilamentType filamentType){
+        this(PrintManager.getInstance().getPrint(printId), colors, filamentType);
     }
 
     public List<Color> getColors() {
