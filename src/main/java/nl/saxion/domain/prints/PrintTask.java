@@ -35,19 +35,6 @@ public class PrintTask {
         return print;
     }
 
-    public Set<PrinterFeature> getRequirements(){
-        Set<PrinterFeature> result = new HashSet<>();
-
-        if(colors.size() > 1){
-            result.add(PrinterFeature.MULTI_COLOR);
-        }
-        if(filamentType.equals(FilamentType.ABS)){
-            result.add(PrinterFeature.HOUSED);
-        }
-
-        return result;
-    }
-
     @Override
     public String toString() {
         return "< " + print.name() +" " + filamentType + " " + colors.toString() + " >";

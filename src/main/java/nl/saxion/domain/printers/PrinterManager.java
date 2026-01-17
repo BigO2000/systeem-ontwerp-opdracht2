@@ -6,13 +6,18 @@ import nl.saxion.domain.utils.PrinterFactory;
 import nl.saxion.domain.utils.Utils;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PrinterManager {
     private static final String PRINTER_LOCATION = "resources/printers.json";
     private static PrinterManager INSTANCE;
     private final Map<Integer, Printer> printers = new HashMap<>();
     private final List<PrintTask> pendingPrintTasks = new ArrayList<>();
+
+    private String printStrategy; // For future use.
 
     private PrinterManager() throws Exception {
         // Uses a printerHelper record for Jackson parsing.
@@ -64,7 +69,7 @@ public class PrinterManager {
     private void selectPrintTask(Printer printer) {
         boolean found = false;
         for (PrintTask printTask : pendingPrintTasks) {
-            if (printer.canPrint(printTask)) {
+            if (!printer.isBusy() && printer.canPrint(printTask)) {
                 printer.setCurrentTask(printTask);
                 found = true;
             }

@@ -1,9 +1,6 @@
 package nl.saxion.domain.spools;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import nl.saxion.domain.prints.PrintTask;
-import nl.saxion.domain.enums.Color;
-import nl.saxion.domain.enums.FilamentType;
 
 import java.io.File;
 import java.util.HashMap;
@@ -40,16 +37,4 @@ public class SpoolManager {
                 .map(Spool::toString)
                 .toList();
     }
-
-    public void addSpool(int id, Color color, FilamentType filamentType, double length) {
-        spools.put(id, new Spool(id, color, filamentType, length));
-    }
-
-    public Spool findSpoolForPrint(PrintTask task) {
-        return spools.values().stream()
-                .filter(s -> s.getColor().equals(task.getColors()) && s.getFilamentType().equals(task.getFilamentType()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Could not find a spool for this task"));
-    }
-
 }
