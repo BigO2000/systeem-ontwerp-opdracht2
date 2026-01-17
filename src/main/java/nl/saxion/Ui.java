@@ -1,5 +1,6 @@
 package nl.saxion;
 
+import nl.saxion.printers.PrinterManager;
 import nl.saxion.utils.Color;
 import nl.saxion.utils.FilamentType;
 
@@ -60,9 +61,9 @@ public class Ui {
     }
 
     private void startPrintQueue() {
-       /* System.out.println("---------- Starting Print Queue ----------");
-        manager.startInitialQueue();
-        System.out.println("-----------------------------------");*/
+        System.out.println("---------- Starting Print Queue ----------");
+        Facade.startInitialQueue();
+        System.out.println("-----------------------------------");
     }
 
     private void registerPrintCompletion() {

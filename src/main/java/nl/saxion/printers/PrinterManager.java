@@ -88,7 +88,7 @@ public class PrinterManager {
     }
 
     public void startInitialQueue() {
-
+        pendingPrintTasks.forEach(t -> selectPrintTask());
     }
 
     public String getPrinterCurrentTask(int id) {
@@ -99,80 +99,27 @@ public class PrinterManager {
         return pendingPrintTasks;
     }
 
-   /* public void addPrintTask(String printName, List<Color> colors, FilamentType type) {
-        Print print = findPrint(printName);
-        if (print == null) {
-            printError("Could not find print with name " + printName);
-            return;
-        }
-        if (colors.size() == 0) {
-            printError("Need at least one color, but none given");
-            return;
-        }
-        // TODO: Fix
-        for (Color color : colors) {
-            boolean found = false;
-            for (Spool spool : spools) {
-                if (spool.getColor().equals(color) && spool.getFilamentType() == type) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                printError("Color " + color + " (" + type + ") not found");
-                return;
-            }
-        }
-
-        PrintTask task = new PrintTask(print, colors, type);
-        pendingPrintTasks.add(task);
-        System.out.println("Added task to queue");
-
-    }*/
-
     public void registerPrinterFailure(int id) {
-       /* if(printers.get(id).getCurrentTask() == null){
+        if(printers.get(id).getCurrentTask() == null){
             throw new IllegalStateException("Cannot find running task on printer with ID: " + id );
         }
 
-        // Reenter the failed task back into pending tasks.
-        PrintTask task = printers.get(id).removeCurrentTask();
-        pendingPrintTasks.add(task);
-        System.out.println("Task " + task + " removed from printer " + printers.get(id).getName());
+        Printer printer = printers.get(id);
+        PrintTask task = printer.removeCurrentTask();
+        System.out.println("Task " + task + " removed from printer " + printer.getName());
 
-        //TODO: restart failed task.*/
+        // Restart the failed task.
+        printer.setCurrentTask(task);
     }
 
     public void registerCompletion(int printerId) {
-       /* Map.Entry<Printer, PrintTask> foundEntry = null;
-        for (Map.Entry<Printer, PrintTask> entry : runningPrintTasks.entrySet()) {
-            if (entry.getKey().getId() == printerId) {
-                foundEntry = entry;
-                break;
-            }
+        if(!printers.containsKey(printerId)){
+            throw new IllegalStateException("Printer with id: " + printerId + " does not exits");
         }
-        if (foundEntry == null) {
-            printError("cannot find a running task on printer with ID " + printerId);
-            return;
-        }
-        PrintTask task = foundEntry.getValue();
-        runningPrintTasks.remove(foundEntry.getKey());
 
-        System.out.println("Task " + task + " removed from printer "
-                + foundEntry.getKey().getName());
+        Printer printer = printers.get(printerId);
 
-        Printer printer = foundEntry.getKey();
-        Spool[] spools = printer.getCurrentSpools();
-        for (int i = 0; i < spools.length && i < task.getColors().size(); i++) {
-            spools[i].reduceLength(task.getPrint().getFilamentLength().get(i));
-        }
-        selectPrintTask(printer);*/
+        printer.removeCurrentTask();
+        selectPrintTask(printer);
     }
-
-    private void printError(String s) {
-        System.out.println("---------- Error Message ----------");
-        System.out.println("Error: " + s);
-        System.out.println("--------------------------------------");
-    }
-
 }

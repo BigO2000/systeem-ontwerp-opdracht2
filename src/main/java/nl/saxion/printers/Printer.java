@@ -45,9 +45,14 @@ public class Printer {
     }
 
     public PrintTask removeCurrentTask(){
-        PrintTask task = currentTask;
-        currentTask = null;
+        if(currentTask == null){
+            throw new IllegalStateException("Printer does not have a task to remove");
+        }
 
+        PrintTask task = currentTask;
+
+        System.out.println("Task: " + currentTask + " removed from printer");
+        currentTask = null;
         return task;
     }
 
