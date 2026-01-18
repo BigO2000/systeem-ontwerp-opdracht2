@@ -14,6 +14,7 @@ public class Spool {
 
     public Spool(int id, Color color, FilamentType filamentType, double length) {
         this.id = id;
+        this.color = color;
         this.filamentType = filamentType;
         this.length = length;
     }
